@@ -3,15 +3,15 @@ import { CommonModule } from '@angular/common';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SelfPresentationComponent } from './self-presentation/self-presentation.component';
 import { HelloWorldComponent } from './hello-world/hello-world.component';
-import { MainViewComponent } from '../shared/main-view/main-view.component';
-import { SidebarComponent } from '../shared/sidebar/sidebar.component';
+import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-    declarations: [ NotFoundComponent, SelfPresentationComponent, HelloWorldComponent, MainViewComponent, SidebarComponent ],
+    declarations: [ NotFoundComponent, SelfPresentationComponent, HelloWorldComponent ],
     imports: [
         CommonModule,
-        RouterModule
+        RouterModule,
+        SharedModule
     ],
     exports: [ NotFoundComponent, SelfPresentationComponent, HelloWorldComponent ]
 })

@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { MainModule } from './main/main.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -16,6 +17,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         AppRoutingModule,
         CoreModule,
         MainModule,
+        SharedModule,
         FlexLayoutModule
     ],
     providers: [],
