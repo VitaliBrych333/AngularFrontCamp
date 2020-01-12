@@ -1,0 +1,15 @@
+div {
+    display: flex;
+}
+
+app-sidebar {
+    width: 30%;
+}
+
+app-main-view {
+    width: 70%;
+}
+
+app-sidebar, app-main-view {
+    margin: 30px 50px;
+}
