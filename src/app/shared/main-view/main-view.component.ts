@@ -7,6 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class MainViewComponent {
 
-    @Input() protected content: string;
-    @Input() protected links: object[];
+    @Input() public content: string;
+    @Input() public links: object[];
 }

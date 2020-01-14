@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SelfPresentationComponent implements OnInit {
 
-    protected content: string;
-    protected links: object[];
+    public content: string;
+    public links: object[];
 
     ngOnInit(): void {
         this.content = `I learn to program in JS for about a year. I like exactly the frontend,
