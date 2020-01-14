@@ -18,7 +18,7 @@ import { SharedModule } from './shared/shared.module';
         CoreModule,
         MainModule,
         SharedModule,
-        FlexLayoutModule
+        FlexLayoutModule,
     ],
     providers: [],
     bootstrap: [AppComponent]

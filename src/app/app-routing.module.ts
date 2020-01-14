@@ -8,6 +8,7 @@ const routes: Routes = [
     { path: 'main', component: HelloWorldComponent },
     { path: 'contact', component: SelfPresentationComponent },
     { path: '404', component: NotFoundComponent },
+    { path: '', redirectTo: 'main', pathMatch: 'full' },
     { path: '**', redirectTo: '404' },
 ];
 

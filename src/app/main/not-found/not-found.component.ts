@@ -7,17 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotFoundComponent implements OnInit {
 
-    content: string;
-    links: object[];
+    protected content: string;
+    protected links: object[];
 
-    constructor() { }
-
-    ngOnInit() {
+    ngOnInit(): void {
         this.content = 'Content not-found!';
         this.links = [
             { link: 'contact', name: 'About author' },
             { link: 'main', name: 'Hello World' }
-        ]
+        ];
     }
 
 }

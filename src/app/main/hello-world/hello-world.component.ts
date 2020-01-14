@@ -7,16 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HelloWorldComponent implements OnInit {
 
-    content: string;
-    links: object[];
+    protected content: string;
+    protected links: object[];
 
-    constructor() { }
-
-    ngOnInit() {
+    ngOnInit(): void {
         this.content = 'Hello world!';
         this.links = [
             { link: 'contact', name: 'About author' },
-        ]
+        ];
     }
 
 }

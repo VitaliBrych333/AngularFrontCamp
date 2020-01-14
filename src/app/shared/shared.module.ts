@@ -10,6 +10,6 @@ import { RouterModule } from '@angular/router';
         CommonModule,
         RouterModule
     ],
-    exports: [ SidebarComponent, MainViewComponent]
+    exports: [ CommonModule, SidebarComponent, MainViewComponent]
 })
 export class SharedModule { }

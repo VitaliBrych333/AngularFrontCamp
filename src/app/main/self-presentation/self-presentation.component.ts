@@ -7,12 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SelfPresentationComponent implements OnInit {
 
-    content: string;
-    links: object[];
+    protected content: string;
+    protected links: object[];
 
-    constructor() { }
-
-    ngOnInit() {
+    ngOnInit(): void {
         this.content = `I learn to program in JS for about a year. I like exactly the frontend,
                         because I love to contemplate my result and I like how dynamically this
                         direction is developing. My goals are to achieve an appropriate level of
@@ -26,10 +24,10 @@ export class SelfPresentationComponent implements OnInit {
                         development and self-education. I constantly read manuals and special
                         literature on programming, watch video tutorials, independently try to understand
                         technologies. I assimilate information quickly. I would like to wish myself
-                        and you development and the fastest possible achievement of the set goals.`
+                        and you development and the fastest possible achievement of the set goals.`;
         this.links = [
             { link: 'main', name: 'Hello World' },
-        ]
+        ];
     }
 
 }
