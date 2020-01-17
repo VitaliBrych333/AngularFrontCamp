@@ -10,12 +10,11 @@ export class NotFoundComponent implements OnInit {
     public content: string;
     public links: object[];
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.content = 'Content not-found!';
         this.links = [
             { link: 'contact', name: 'About author' },
             { link: 'main', name: 'Hello World' }
         ];
     }
-
 }

@@ -10,7 +10,7 @@ export class SelfPresentationComponent implements OnInit {
     public content: string;
     public links: object[];
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.content = `I learn to program in JS for about a year. I like exactly the frontend,
                         because I love to contemplate my result and I like how dynamically this
                         direction is developing. My goals are to achieve an appropriate level of

@@ -10,11 +10,10 @@ export class HelloWorldComponent implements OnInit {
     public content: string;
     public links: object[];
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.content = 'Hello world!';
         this.links = [
             { link: 'contact', name: 'About author' },
         ];
     }
-
 }
