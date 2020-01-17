@@ -1,0 +1,16 @@
+div {
+    display: flex;
+    height: 20px;
+    justify-content: center;
+    padding: 10px;
+    background-image: linear-gradient(rgb(85, 102, 59), rgb(47, 202, 207));
+    margin-top: 10px;
+}
+
+p {
+    font: {
+        size: 14px;
+        family: Arial, sans-serif;
+    }
+    color: rgb(190, 188, 57);
+}
