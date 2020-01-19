@@ -4,9 +4,10 @@ import { SelfPresentationComponent } from './self-presentation/self-presentation
 import { HelloWorldComponent } from './hello-world/hello-world.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { ListNewsComponent } from './list-news/list-news.component';
 
 @NgModule({
-    declarations: [ NotFoundComponent, SelfPresentationComponent, HelloWorldComponent ],
+    declarations: [ NotFoundComponent, SelfPresentationComponent, HelloWorldComponent, ListNewsComponent ],
     imports: [
         RouterModule,
         SharedModule

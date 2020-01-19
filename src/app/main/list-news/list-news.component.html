@@ -1,0 +1,27 @@
+<div>
+    <div [className]="'source'">
+      <h2>rererere</h2>
+    </div>
+    <div [className]="'filter'">
+        <select>
+            <option>Пункт 1</option>
+            <option>Пункт 2</option>
+        </select>
+        <div>
+            <input type="text">
+            <button>Filter</button>
+        </div>
+
+        <div [className]="'checkbox'">
+            <input type="checkbox">
+            <p>Only created by me</p>
+        </div>
+        <button [routerLink]="['/main/newNews']">Add article</button>
+    </div>
+    <!-- <app-item-detail *ngFor="let item of newsItems"></app-item-detail> -->
+    <app-news-item *ngFor="let item of newsItems"></app-news-item>
+    <div [className]="'loading'">
+        <button>Load more</button>
+    </div>
+</div>
+
