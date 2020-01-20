@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { News } from '../../interfaces/news.interface';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-news-item',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewsItemComponent implements OnInit {
 
-  constructor() { }
+  @Input() public item: News;
+  @Input() public listItems: News[];
+
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
+  }
+
+  public delete(id: string): void {
+    this.dataService.delete(this.listItems, id);
   }
 
 }

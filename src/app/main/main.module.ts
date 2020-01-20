@@ -5,12 +5,15 @@ import { HelloWorldComponent } from './hello-world/hello-world.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ListNewsComponent } from './list-news/list-news.component';
-
+import { LoadComponent } from './load/load.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
-    declarations: [ NotFoundComponent, SelfPresentationComponent, HelloWorldComponent, ListNewsComponent ],
+    declarations: [ NotFoundComponent, SelfPresentationComponent, HelloWorldComponent, ListNewsComponent, LoadComponent ],
     imports: [
         RouterModule,
-        SharedModule
+        SharedModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     exports: [ NotFoundComponent, SelfPresentationComponent, HelloWorldComponent ]
 })

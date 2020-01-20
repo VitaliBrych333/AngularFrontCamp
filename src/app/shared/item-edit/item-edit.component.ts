@@ -1,46 +1,79 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DataService } from '../../services/data.service';
+import { Router } from '@angular/router';
+import { News } from 'src/app/interfaces/news.interface';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-item-edit',
   templateUrl: './item-edit.component.html',
-  styleUrls: ['./item-edit.component.scss']
+  styleUrls: ['./item-edit.component.scss'],
+  providers: [ DatePipe ]
 })
 export class ItemEditComponent implements OnInit {
+
+  currentFieldEditId: string = this.router.url.slice(11);
+  currenttItem: News;
 
   newsItem = new FormGroup({
     heading: new FormControl(),
     description: new FormControl(),
     content: new FormControl(),
     link: new FormControl(),
-    // file: new FormControl(),
     image: new FormControl(),
     date: new FormControl(),
     author: new FormControl(),
     source: new FormControl()
   });
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+              private dataService: DataService,
+              private router: Router,
+              private datePipe: DatePipe) { }
 
   ngOnInit() {
 
-    this.newsItem = this.fb.group({
-      heading: '',
-      description: '',
-      content: '',
-      link: '',
-      image: '',
-      date: '',
-      author: '',
-      source: ''
-    });
+    if (this.router.url.slice(6) === 'newNews') {
+
+      this.newsItem = this.fb.group({
+        heading: null,
+        description: null,
+        content: null,
+        image: null,
+        url: null,
+        link: null,
+        date: this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
+        author: null,
+        source: null
+      });
+
+    } else {
+
+      this.currenttItem = this.dataService.getItem(this.currentFieldEditId);
+      const date = this.datePipe.transform(this.currenttItem.date, 'yyyy-MM-dd');
+
+      this.newsItem = this.fb.group({
+        heading: [this.currenttItem.title],
+        description: [this.currenttItem.shortDescription],
+        content: [this.currenttItem.content],
+        image: [null],
+        url: [null],
+        link: [null],
+        date: [date],
+        author: [this.currenttItem.author],
+        source: [this.currenttItem.source]
+      });
+    }
   }
 
-  save() {
-
+  public save(): void {
+    console.log('save');
+    this.router.navigate(['/main']);
   }
 
-  cancel() {
-
+  public cancel(): void {
+    console.log('cancel');
+    this.router.navigate(['/main']);
   }
 }
