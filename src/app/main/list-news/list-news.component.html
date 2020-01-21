@@ -1,19 +1,19 @@
 <div>
     <div [className]="'source'">
-      <h2>rererere</h2>
+        <h2 *ngIf="showSource && !isDisabled">{{showSource}}</h2>
     </div>
     <div [className]="'filter'">
         <form id="form" [formGroup]="filter">
-          <select (change)="filterSource($event)">
-            <option>Select source</option>
-            <option>The inthernet</option>
-            <option>CNN</option>
-            <option>BBC</option>
-          </select>
-          <div>
-            <input type="text" formControlName="keyWords">
-            <button (click)="filterByKeyWords()" [disabled]="isDisabled">Filter</button>
-          </div>
+            <select (change)="filterSource($event)" [disabled]="isDisabled">
+                <option>Select source</option>
+                <option>The inthernet</option>
+                <option>CNN</option>
+                <option>BBC</option>
+            </select>
+            <div>
+                <input type="text" formControlName="keyWords">
+                <button (click)="filterByKeyWords()">Filter</button>
+            </div>
         </form>
 
         <div [className]="'checkbox'">

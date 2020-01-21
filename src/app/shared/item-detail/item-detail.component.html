@@ -10,7 +10,7 @@
       </div>
   </div>
 
-  <div [className]="'button'">
+  <div [className]="'button'" *ngIf="youAuthor">
       <button [routerLink]="['/main/edit/', currentNews.id]">Edit</button>
       <button (click)="delete()">Delete</button>
   </div>

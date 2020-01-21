@@ -3,13 +3,12 @@ import { BehaviorSubject } from 'rxjs';
 import { News } from '../interfaces/news.interface';
 import { Router } from '@angular/router';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  newsItems: News[] = [
+  public newsItems: News[] = [
     {
       id: '1',
       title: 'Text 1',
@@ -112,9 +111,7 @@ export class DataService {
     }
   ];
 
-  showNews: News[] = this.newsItems.slice(0, 5);
-
-  public newsSource = new BehaviorSubject<object>(this.showNews);
+  public newsSource = new BehaviorSubject<object>(this.newsItems.slice(0, 5));
   public currentNews = this.newsSource.asObservable();
 
   constructor(private router: Router) { }
@@ -146,20 +143,29 @@ export class DataService {
     this.newsSource.next(this.newsItems.filter((item: News) => item.source === value));
   }
 
-  public filterByKeyWords(value: string | undefined, source: string | undefined): void {
+  public filterByKeyWords(value: string | undefined,
+                          source: string | undefined,
+                          author: string | undefined,
+                          data: News[] | undefined): void {
     let newNews: News[];
 
-    if (value && source) {
-      newNews = this.newsItems.filter((item: News) => (item.content.indexOf(value) !== -1) && (item.source === source));
+    if (value && author) {
+      newNews = data.filter((item: News) => (item.content.indexOf(value) !== -1) && (item.author === author));
+
+    } else if (value && source) {
+      newNews = data.filter((item: News) => (item.content.indexOf(value) !== -1) && (item.source === source));
 
     } else if (value && !source) {
-      newNews = this.newsItems.filter((item: News) => (item.content.indexOf(value) !== -1));
+      newNews = data.filter((item: News) => (item.content.indexOf(value) !== -1));
 
     } else if (!value && source) {
-      newNews = this.newsItems.filter((item: News) => item.source === source);
+      newNews = data.filter((item: News) => item.source === source);
+
+    } else if (!value && !source && !author) {
+      newNews = this.newsItems.slice(0, 5);
     }
 
-    this.newsSource.next(newNews);
+    this.newsSource.next(newNews.slice(0, 5));
   }
 
 

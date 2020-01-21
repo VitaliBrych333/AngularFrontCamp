@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { DataService } from '../../services/data.service';
 import { Router } from '@angular/router';
 import { News } from 'src/app/interfaces/news.interface';
@@ -13,10 +13,10 @@ import { DatePipe } from '@angular/common';
 })
 export class ItemEditComponent implements OnInit {
 
-  currentFieldEditId: string = this.router.url.slice(11);
-  currenttItem: News;
+  public currentFieldEditId: string = this.router.url.slice(11);
+  public currenttItem: News;
 
-  newsItem = new FormGroup({
+  public newsItem = new FormGroup({
     heading: new FormControl(),
     description: new FormControl(),
     content: new FormControl(),
@@ -32,7 +32,7 @@ export class ItemEditComponent implements OnInit {
               private router: Router,
               private datePipe: DatePipe) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
 
     if (this.router.url.slice(6) === 'newNews') {
 

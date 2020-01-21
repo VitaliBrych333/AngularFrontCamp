@@ -8,7 +8,7 @@
   </div>
   <div [className]="'button'">
       <div><p>{{item.date}}</p></div>
-      <div>
+      <div *ngIf="youAuthor">
         <button [routerLink]="['/main/edit/', item.id]">Edit</button>
         <button (click)="delete(item.id)">Delete</button>
       </div>

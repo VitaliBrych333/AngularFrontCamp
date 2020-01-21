@@ -4,7 +4,13 @@
 
 .filter {
     display: flex;
-    justify-content: space-around
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+form div {
+  display: inline-block;
+  margin-left: 50px;
 }
 
 input[type="text"] {
