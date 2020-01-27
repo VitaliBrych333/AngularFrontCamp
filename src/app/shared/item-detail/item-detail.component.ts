@@ -3,6 +3,7 @@ import { DataService } from '../../services/data.service';
 import { News } from '../../interfaces/news.interface';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Authors } from '../../shared/constants/authors-enum';
 
 @Component({
   selector: 'app-item-detail',
@@ -24,7 +25,7 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
     this.dataService.currentNews.subscribe((data: News[]) => {
         this.currentNews = data.find((item: News) => item.id === this.currentFieldEditId);
 
-        if (this.currentNews.author === 'Vitali') {
+        if (this.currentNews.author === Authors.DEFAULT) {
           this.youAuthor = true;
         } else {
           this.youAuthor = false;

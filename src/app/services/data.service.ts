@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { News } from '../interfaces/news.interface';
 import { Router } from '@angular/router';
+import { Authors } from '../shared/constants/authors-enum';
+import { Filters } from '../shared/constants/filters';
 
 @Injectable({
   providedIn: 'root'
@@ -132,15 +134,15 @@ export class DataService {
   }
 
   public filterByMe(): void {
-    this.newsSource.next(this.newsItems.filter((item: News) => item.author === 'Vitali'));
+    this.newsSource.next(this.filter(this.newsItems, Authors.DEFAULT, Filters.byAuthor));
   }
 
   public getAllItems(): void {
     this.newsSource.next(this.newsItems.slice(0, 5));
   }
 
-  public filterBySource(value: string): void {
-    this.newsSource.next(this.newsItems.filter((item: News) => item.source === value));
+  public filter(data: News[], filterValue: string, filterType: any): News[] {
+    return filterType(data, filterValue);
   }
 
   public filterByKeyWords(value: string | undefined,
@@ -150,16 +152,16 @@ export class DataService {
     let newNews: News[];
 
     if (value && author) {
-      newNews = data.filter((item: News) => (item.content.indexOf(value) !== -1) && (item.author === author));
+      newNews = this.filter(this.filter(data, author, Filters.byAuthor), value, Filters.byValue);
 
     } else if (value && source) {
-      newNews = data.filter((item: News) => (item.content.indexOf(value) !== -1) && (item.source === source));
+      newNews = this.filter(this.filter(data, value, Filters.byValue), source, Filters.bySource);
 
     } else if (value && !source) {
-      newNews = data.filter((item: News) => (item.content.indexOf(value) !== -1));
+      newNews = this.filter(data, value, Filters.byValue);
 
     } else if (!value && source) {
-      newNews = data.filter((item: News) => item.source === source);
+      newNews = this.filter(data, source, Filters.bySource);
 
     } else if (!value && !source && !author) {
       newNews = this.newsItems.slice(0, 5);
@@ -167,6 +169,4 @@ export class DataService {
 
     this.newsSource.next(newNews.slice(0, 5));
   }
-
-
 }

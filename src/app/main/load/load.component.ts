@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { News } from '../../interfaces/news.interface';
 
@@ -13,8 +12,7 @@ export class LoadComponent implements OnInit {
   @Input() public newsItems: News[];
   @Output() public loadMore = new EventEmitter<boolean>();
 
-  constructor(private router: Router,
-              private dataService: DataService) { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
   }

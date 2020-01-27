@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { News } from '../../interfaces/news.interface';
 import { DataService } from '../../services/data.service';
+import { Authors } from '../../shared/constants/authors-enum';
 
 @Component({
   selector: 'app-news-item',
@@ -17,7 +18,7 @@ export class NewsItemComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   public ngOnInit(): void {
-    if (this.item.author === 'Vitali') {
+    if (this.item.author === Authors.DEFAULT) {
       this.youAuthor = true;
     } else {
       this.youAuthor = false;

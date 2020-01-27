@@ -1,8 +1,8 @@
 <div>
-    <div [className]="'source'">
+    <div class="source">
         <h2 *ngIf="showSource && !isDisabled">{{showSource}}</h2>
     </div>
-    <div [className]="'filter'">
+    <div class="filter">
         <form id="form" [formGroup]="filter">
             <select (change)="filterSource($event)" [disabled]="isDisabled">
                 <option>Select source</option>
@@ -16,11 +16,11 @@
             </div>
         </form>
 
-        <div [className]="'checkbox'">
+        <div class="checkbox">
             <input type="checkbox" (change)="checkValue($event)">
             <p>Only created by me</p>
         </div>
-        <button [routerLink]="['/main/newNews']">Add article</button>
+        <button routerLink="/main/newNews">Add article</button>
     </div>
     <app-news-item *ngFor="let item of newsItems" [item]="item" [listItems]="newsItems"></app-news-item>
     <app-load [newsItems]="newsItems" *ngIf="!isEmpty" (loadMore)="loadNews($event)"></app-load>

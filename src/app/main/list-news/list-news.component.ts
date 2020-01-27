@@ -1,13 +1,16 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { News } from '../../interfaces/news.interface';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { Authors } from '../../shared/constants/authors-enum';
+import { Source } from '../../shared/constants/source-enum';
 
 @Component({
   selector: 'app-list-news',
   templateUrl: './list-news.component.html',
-  styleUrls: ['./list-news.component.scss']
+  styleUrls: ['./list-news.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListNewsComponent implements OnInit, OnDestroy {
 
@@ -69,7 +72,7 @@ export class ListNewsComponent implements OnInit, OnDestroy {
   }
 
   public filterSource(event: any): void {
-    if (event.target.value !== 'Select source') {
+    if (event.target.value !== Source.DEFAULT) {
       this.source = event.target.value;
     } else {
       this.source = null;
@@ -78,15 +81,15 @@ export class ListNewsComponent implements OnInit, OnDestroy {
 
   public filterByKeyWords(): void {
     if (this.isDisabled && this.filter.value.keyWords) {
-      this.dataService.filterByKeyWords(this.filter.value.keyWords, undefined, 'Vitali', this.newsItems);
+      this.dataService.filterByKeyWords(this.filter.value.keyWords, undefined, Authors.DEFAULT, this.newsItems);
 
-    } else if (this.filter.value.keyWords && this.source !== 'Select source') {
+    } else if (this.filter.value.keyWords && this.source !== Source.DEFAULT) {
       this.dataService.filterByKeyWords(this.filter.value.keyWords, this.source, undefined, this.newsItems)
 
-    } else if (this.filter.value.keyWords && this.source === 'Select source') {
+    } else if (this.filter.value.keyWords && this.source === Source.DEFAULT) {
       this.dataService.filterByKeyWords(this.filter.value.keyWords, undefined, undefined, this.newsItems);
 
-    } else if (!this.filter.value.keyWords && this.source !== 'Select source' && this.source) {
+    } else if (!this.filter.value.keyWords && this.source !== Source.DEFAULT && this.source) {
       this.dataService.filterByKeyWords(undefined, this.source, undefined, this.newsItems);
 
     } else if (!this.filter.value.keyWords && !this.source && !this.isDisabled) {
