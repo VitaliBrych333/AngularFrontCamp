@@ -1,3 +1,3 @@
 export enum Path {
-  NEWS = 'newNews'
+    NEWS = 'newNews'
 }

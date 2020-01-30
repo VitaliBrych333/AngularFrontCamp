@@ -1,3 +1,3 @@
 export enum Authors {
-  DEFAULT = 'Vitali'
+    DEFAULT = 'Vitali'
 }
