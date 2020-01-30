@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { News } from '../../interfaces/news.interface';
 import { DataService } from '../../services/data.service';
 import { Authors } from '../../shared/constants/authors-enum';
@@ -6,11 +6,12 @@ import { Authors } from '../../shared/constants/authors-enum';
 @Component({
   selector: 'app-news-item',
   templateUrl: './news-item.component.html',
-  styleUrls: ['./news-item.component.scss']
+  styleUrls: ['./news-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NewsItemComponent implements OnInit {
 
-  public youAuthor: boolean = false;
+  public isCurrentUser: boolean = false;
 
   @Input() public item: News;
   @Input() public listItems: News[];
@@ -18,11 +19,7 @@ export class NewsItemComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   public ngOnInit(): void {
-    if (this.item.author === Authors.DEFAULT) {
-      this.youAuthor = true;
-    } else {
-      this.youAuthor = false;
-    }
+      this.isCurrentUser = this.item.author === Authors.DEFAULT;
   }
 
   public delete(id: string): void {

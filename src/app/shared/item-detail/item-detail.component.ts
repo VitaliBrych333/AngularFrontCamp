@@ -1,44 +1,44 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { News } from '../../interfaces/news.interface';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { Authors } from '../../shared/constants/authors-enum';
+import { Subject } from 'rxjs';
+import { takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-item-detail',
   templateUrl: './item-detail.component.html',
-  styleUrls: ['./item-detail.component.scss']
+  styleUrls: ['./item-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemDetailComponent implements OnInit, OnDestroy {
 
   public currentNews: News;
-  public currentFieldEditId: string = this.router.url.slice(6);
-  public youAuthor: boolean = false;
+  public currentFieldEditId: string = this.activatedRouter.snapshot.paramMap.get('id');
+  public isCurrentUser: boolean = false;
 
-  protected readonly subscriptions: Subscription[] = [];
+  private readonly unsubscribe$: Subject<boolean> = new Subject();
 
   constructor(private dataService: DataService,
-              private router: Router) { }
+              private activatedRouter: ActivatedRoute) { }
 
   public ngOnInit(): void {
-    this.dataService.currentNews.subscribe((data: News[]) => {
+    this.dataService.currentNews
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((data: News[]) => {
         this.currentNews = data.find((item: News) => item.id === this.currentFieldEditId);
-
-        if (this.currentNews.author === Authors.DEFAULT) {
-          this.youAuthor = true;
-        } else {
-          this.youAuthor = false;
-        }
-    });
+        this.isCurrentUser = this.currentNews.author === Authors.DEFAULT;
+      });
   }
 
   public ngOnDestroy(): void {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    this.unsubscribe$.next();
+    this.unsubscribe$.unsubscribe();
   }
 
   public delete(): void {
-    console.log('delete')
+    console.log('delete');
   }
 
 }

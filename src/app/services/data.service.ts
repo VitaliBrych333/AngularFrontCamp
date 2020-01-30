@@ -39,7 +39,7 @@ export class DataService {
       date: '11.03.2019',
       time: '14:01:01',
       author: 'John S.',
-      source: 'BBC'
+      source: 'The inthernet'
     },
     {
       id: '4',
@@ -49,7 +49,7 @@ export class DataService {
       date: '11.06.2019',
       time: '10:01:01',
       author: 'Billy D',
-      source: 'CNN'
+      source: 'The inthernet'
     },
     {
       id: '5',
@@ -69,7 +69,7 @@ export class DataService {
       date: '11.09.2019',
       time: '14:01:01',
       author: 'John K.',
-      source: 'the inthernet'
+      source: 'The inthernet'
     },
     {
       id: '7',
@@ -79,7 +79,7 @@ export class DataService {
       date: '11.09.2019',
       time: '19:01:01',
       author: 'Smith R.',
-      source: 'CNN'
+      source: 'The inthernet'
     },
     {
       id: '8',
@@ -89,7 +89,7 @@ export class DataService {
       date: '11.03.2019',
       time: '14:03:01',
       author: 'no name',
-      source: 'CNN'
+      source: 'The inthernet'
     },
     {
       id: '9',
@@ -109,7 +109,7 @@ export class DataService {
       date: '11.03.2019',
       time: '14:04:01',
       author: 'John',
-      source: 'BBC'
+      source: 'The inthernet'
     }
   ];
 
