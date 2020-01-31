@@ -1,0 +1,26 @@
+<div>
+    <div class="source">
+        <h2 *ngIf="showSource && !isDisabled">{{showSource}}</h2>
+    </div>
+    <div class="filter">
+        <form id="form" [formGroup]="filter">
+            <select (change)="filterSource($event)" [disabled]="isDisabled">
+                <option>Select source</option>
+                <option>The inthernet</option>
+            </select>
+            <div>
+                <input type="text" formControlName="keyWords">
+                <button (click)="filterByKeyWords()">Filter</button>
+            </div>
+        </form>
+
+        <div class="checkbox">
+            <input type="checkbox" (change)="checkValue($event)">
+            <p>Only created by me</p>
+        </div>
+        <button routerLink="/main/newNews">Add article</button>
+    </div>
+    <app-news-item *ngFor="let item of newsItems" [item]="item" [listItems]="newsItems"></app-news-item>
+    <app-load [newsItems]="newsItems" *ngIf="!isEmpty" (loadMore)="loadNews($event)"></app-load>
+</div>
+

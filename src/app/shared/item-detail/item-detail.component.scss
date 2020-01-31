@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 7px;
+  border: 1px solid black;
+  margin: 10px auto;
+  width: 70%;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 8px;
+
+  img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+p {
+  margin: 10px 20px;
+}
+
+.content div:first-child {
+  flex-grow: 1;
+}
+
+button {
+  width: 70px;
+  margin: 10px;
+  border-radius: 5px;
+  display: block;
+}
+
+button:hover {
+  background-color: cadetblue;
+  cursor: pointer;
+}
+
+.content div:first-child p {
+  font-size: 24px;
+}
+
+.content div:nth-child(2), .content div:nth-child(3) {
+  font-style: italic;
+  font-size: 18px;
+  max-width: 80%;
+}
+
+
