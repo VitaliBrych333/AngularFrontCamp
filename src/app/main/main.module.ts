@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { ListNewsComponent } from './list-news/list-news.component';
 import { LoadComponent } from './load/load.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 @NgModule({
     declarations: [ NotFoundComponent, SelfPresentationComponent, HelloWorldComponent, ListNewsComponent, LoadComponent ],
     imports: [

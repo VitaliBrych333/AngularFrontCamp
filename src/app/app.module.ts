@@ -21,6 +21,6 @@ import { SharedModule } from './shared/shared.module';
         FlexLayoutModule,
     ],
     providers: [],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
 })
 export class AppModule { }
