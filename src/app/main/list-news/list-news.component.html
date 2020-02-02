@@ -20,7 +20,8 @@
         </div>
         <button routerLink="/main/newNews">Add article</button>
     </div>
-    <app-news-item *ngFor="let item of newsItems | filterByKeyWord : filter.value.keyWords" [item]="item" [listItems]="newsItems"></app-news-item>
+    <ng-template #parent></ng-template>
+    <!-- <app-news-item *ngFor="let item of newsItems | filterByKeyWord : filter.value.keyWords" [item]="item" [listItems]="newsItems"></app-news-item> -->
     <app-load [newsItems]="newsItems" *ngIf="(newsItems | filterByKeyWord : filter.value.keyWords).length !== 0 && !isEmpty" (loadMore)="loadNews($event)"></app-load>
 </div>
 
