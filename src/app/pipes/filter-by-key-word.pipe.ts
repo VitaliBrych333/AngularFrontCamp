@@ -1,18 +1,18 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { News } from '../interfaces/news.interface';
+import { Article } from '../interfaces/article.interface';
 
 @Pipe({
   name: 'filterByKeyWord'
 })
 export class FilterByKeyWordPipe implements PipeTransform {
 
-    transform(items: News[], searchText: string): News[] {
+    transform(items: Article[], searchText: string): Article[] {
         if (!items) { return []; }
         if (!searchText) { return items; }
 
         searchText = searchText.toLowerCase();
 
         return items.filter(obj =>
-            obj.shortDescription.toLowerCase().includes(searchText));
+            obj.description.toLowerCase().includes(searchText));
         }
 }

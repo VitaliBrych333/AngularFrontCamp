@@ -1,16 +1,16 @@
 <div class="container">
   <div class="content">
-      <img alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+      <img alt="Angular Logo" [src]="propUrlImg">
       <div>
         <div><p>{{item.title}}</p></div>
-        <a [routerLink]="['/main/', item.id]">{{item.shortDescription}}...</a>
+        <a [routerLink]="['/main/', propUrl]">{{item.description.slice(0, 80)}}...</a>
       </div>
   </div>
   <div class="button">
-      <div><p>{{item.date}}</p></div>
+      <div><p>{{item.publishedAt.slice(0, 10)}}</p></div>
       <div *ngIf="isCurrentUser">
-        <button [routerLink]="['/main/edit/', item.id]">Edit</button>
-        <button (click)="delete(item.id)">Delete</button>
+        <button [routerLink]="['/main/edit/', item.source.id]">Edit</button>
+        <button (click)="delete(item.source.id)">Delete</button>
       </div>
   </div>
 </div>

@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ComponentFactoryResolver,
-         ViewChild, ViewContainerRef } from '@angular/core';
+         ViewChild, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
 import { DataService } from '../../services/data.service';
-import { News } from '../../interfaces/news.interface';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { Authors } from '../../shared/constants/authors-enum';
@@ -9,6 +8,10 @@ import { Source } from '../../shared/constants/source-enum';
 import { takeUntil} from 'rxjs/operators';
 import { NewsItemComponent } from '../../shared/news-item/news-item.component';
 import { FilterByKeyWordPipe } from '../../pipes/filter-by-key-word.pipe';
+import { RequestSource } from '../../interfaces/request-sources.interface';
+import { Sources } from '../../interfaces/sources.interface';
+import { Article } from '../../interfaces/article.interface';
+import { RequestArticle } from '../../interfaces/request-articles.iterface';
 
 @Component({
     selector: 'app-list-news',
@@ -19,8 +22,8 @@ import { FilterByKeyWordPipe } from '../../pipes/filter-by-key-word.pipe';
 })
 export class ListNewsComponent implements OnInit, OnDestroy {
 
-    public newsItems: News[];
-    public currentItems: News[] = [];
+    public newsItems: Article[];
+    public currentItems: Article[] = [];
     public isEmpty: boolean = false;
 
     public filter = new FormGroup({
@@ -30,6 +33,8 @@ export class ListNewsComponent implements OnInit, OnDestroy {
     public source: string = null;
     public showSource: string = null;
     public isDisabled: boolean = false;
+    public sources: Sources[];
+    public arrayNews: Article[];
 
     private readonly unsubscribe$: Subject<boolean> = new Subject();
 
@@ -38,28 +43,41 @@ export class ListNewsComponent implements OnInit, OnDestroy {
     constructor(private fb: FormBuilder,
                 private dataService: DataService,
                 private componentFactoryResolver: ComponentFactoryResolver,
-                private filterPipe: FilterByKeyWordPipe) { }
+                private filterPipe: FilterByKeyWordPipe,
+                private cdr: ChangeDetectorRef) { }
 
     public ngOnInit(): void {
         this.filter = this.fb.group({
             keyWords: null,
         });
 
-        this.dataService.currentNews
-            .pipe(takeUntil(this.unsubscribe$))
-            .subscribe((data: News[]) => {
-                this.newsItems = data.length !== 10 ? data.slice(0, 5)
-                                                    : data;
-                this.isEmpty = data.length < 5;
-                this.createElementsNewsItem();
-            });
+        this.dataService.getLocalNews()
+            .then((res: Article[]) => {
+                this.dataService.setNews(res);
+            })
+            .catch(err => console.log('error', err));
+
+        this.dataService.getListSources()
+            .then((res: RequestSource) => {
+                this.sources = res.sources;
+                this.cdr.markForCheck();
+            })
+            .catch(err => console.log('errr', err));
 
         this.filter.valueChanges
             .pipe(takeUntil(this.unsubscribe$))
-            .subscribe(val=> {
+            .subscribe(val => {
                 val.keyWords.trim() ? this.createElementsNewsItem()
                                     : undefined;
-        })
+            });
+
+        this.dataService.currentNews
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe((data: Article[]) => {
+                  this.arrayNews = data;
+                  this.showNews(data);
+                  this.createElementsNewsItem();
+            });
     }
 
     public createElementsNewsItem(): void {
@@ -73,6 +91,13 @@ export class ListNewsComponent implements OnInit, OnDestroy {
             (<NewsItemComponent>componentRef.instance).item = this.newsItems[i];
             (<NewsItemComponent>componentRef.instance).listItems = this.newsItems;
         }
+    }
+
+    public showNews(data: Article[] ): void {
+        this.newsItems = data.length !== 10 ? data.slice(0, 5)
+                                            : data;
+        this.isEmpty = data.length < 5;
+        this.createElementsNewsItem();
     }
 
     public ngOnDestroy(): void {
@@ -92,12 +117,25 @@ export class ListNewsComponent implements OnInit, OnDestroy {
             this.isDisabled = false;
             this.dataService.getAllItems();
         }
+        this.showSource = '';
     }
 
     public filterSource(event: { target: HTMLInputElement; }): void {
         const valueSource = event.target.value;
         valueSource !== Source.DEFAULT ? this.source = valueSource
                                        : this.source = null;
+
+        if (this.source) {
+          const resource = this.sources.find(item => item.name === valueSource).id;
+          this.dataService.getNewsBySource(resource)
+              .then((res: RequestArticle) => {
+                  this.dataService.newsSource.next(res.articles);
+                  this.showNews(res.articles);
+                  this.cdr.markForCheck();
+                  this.showSource = valueSource;
+              })
+              .catch(err => console.log('errr', err));
+        }
     }
 
     public filterByKeyWords(): void {
