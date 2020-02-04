@@ -3,7 +3,7 @@ import { Article } from '../../interfaces/article.interface';
 import { DataService } from '../../services/data.service';
 import { Authors } from '../../shared/constants/authors-enum';
 import { Path } from '../../shared/constants/path-enum';
-
+import { Router } from '@angular/router';
 @Component({
     selector: 'app-news-item',
     templateUrl: './news-item.component.html',
@@ -19,7 +19,8 @@ export class NewsItemComponent implements OnInit {
     @Input() public item: Article;
     @Input() public listItems: Article[];
 
-    constructor(private dataService: DataService) { }
+    constructor(private dataService: DataService,
+                private router: Router) { }
 
     public ngOnInit(): void {
         +this.item.source.id <= 10 ? this.propUrl = this.item.source.id
@@ -29,8 +30,10 @@ export class NewsItemComponent implements OnInit {
         this.isCurrentUser = this.item.author === Authors.DEFAULT;
     }
 
-    public delete(id: string): void {
-        this.dataService.delete(this.listItems, id);
+    public delete(item: Article): void {
+        this.dataService.delete(item)
+            .then(res => this.router.navigate(['/main']))
+            .catch(err => console.log('error', err));
     }
 
 }

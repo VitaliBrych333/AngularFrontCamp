@@ -9,8 +9,8 @@
   <div class="button">
       <div><p>{{item.publishedAt.slice(0, 10)}}</p></div>
       <div *ngIf="isCurrentUser">
-        <button [routerLink]="['/main/edit/', item.source.id]">Edit</button>
-        <button (click)="delete(item.source.id)">Delete</button>
+        <button [routerLink]="['/main/edit/', item._id]">Edit</button>
+        <button (click)="delete(item)">Delete</button>
       </div>
   </div>
 </div>

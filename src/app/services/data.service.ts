@@ -14,110 +14,9 @@ import { RequestSource } from '../interfaces/request-sources.interface';
 export class DataService {
 
     public newsItems: Article[] = [];
-
-    // public newsItems: Article[] = [
-    //     {
-    //         source: { id: '1', name: 'The inthernet' },
-    //         author: 'Vitali',
-    //         title: 'Text 1',
-    //         description: 'Lorem ipsum dolor sit amet, consectetur adipisicing...',
-    //         url: '',
-    //         urlToImage: 'http://birolkahraman.com/application/assets/img/site/News.jpg',
-    //         publishedAt: '2016-01-03T15:30:00Z',
-    //         content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto animi architecto voluptatum sapiente natus ipsam eos, totam magnam corrupti facilis?',
-    //     },
-    //     {
-    //         source: { id: '2', name: 'The inthernet' },
-    //         author: 'BBC',
-    //         title: 'Text 2',
-    //         description: 'Lorem ipsum dolor sit amet, consectetur adipisicing...',
-    //         url: '',
-    //         urlToImage: 'http://birolkahraman.com/application/assets/img/site/News.jpg',
-    //         publishedAt: '2019-01-03T15:31:00Z',
-    //         content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto animi architecto voluptatum sapiente natus ipsam eos, totam magnam corrupti facilis?',
-    //     },
-    //     {
-    //         source: { id: '3', name: 'The inthernet' },
-    //         author: 'Vitali',
-    //         title: 'Text 3',
-    //         description: 'Lorem ipsum dolor sit amet, consectetur adipisicing...',
-    //         url: '',
-    //         urlToImage: 'http://birolkahraman.com/application/assets/img/site/News.jpg',
-    //         publishedAt: '2017-01-03T15:30:00Z',
-    //         content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto animi architecto voluptatum sapiente natus ipsam eos, totam magnam corrupti facilis?',
-    //     },
-    //     {
-    //         source: { id: '4', name: 'The inthernet' },
-    //         author: 'BBC',
-    //         title: 'Text 4',
-    //         description: 'Lorem ipsum dolor sit amet, consectetur adipisicing...',
-    //         url: '',
-    //         urlToImage: 'http://birolkahraman.com/application/assets/img/site/News.jpg',
-    //         publishedAt: '2018-01-03T15:30:00Z',
-    //         content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto animi architecto voluptatum sapiente natus ipsam eos, totam magnam corrupti facilis?',
-    //     },
-    //     {
-    //         source: { id: '5', name: 'The inthernet' },
-    //         author: 'Vitali',
-    //         title: 'Text 5',
-    //         description: 'Lorem ipsum dolor sit amet, consectetur adipisicing...',
-    //         url: '',
-    //         urlToImage: 'http://birolkahraman.com/application/assets/img/site/News.jpg',
-    //         publishedAt: '2019-03-03T15:30:00Z',
-    //         content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto animi architecto voluptatum sapiente natus ipsam eos, totam magnam corrupti facilis?',
-    //     },
-    //     {
-    //         source: { id: '6', name: 'The inthernet' },
-    //         author: '',
-    //         title: 'Text 6',
-    //         description: 'Lorem ipsum dolor sit amet, consectetur adipisicing...',
-    //         url: '',
-    //         urlToImage: 'http://birolkahraman.com/application/assets/img/site/News.jpg',
-    //         publishedAt: '2018-01-05T15:30:00Z',
-    //         content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto animi architecto voluptatum sapiente natus ipsam eos, totam magnam corrupti facilis?',
-    //     },
-    //     {
-    //         source: { id: '7', name: 'The inthernet' },
-    //         author: 'Vitali',
-    //         title: 'Text 7',
-    //         description: 'Lorem ipsum dolor sit amet, consectetur adipisicing...',
-    //         url: '',
-    //         urlToImage: 'http://birolkahraman.com/application/assets/img/site/News.jpg',
-    //         publishedAt: '2019-01-03T15:30:00Z',
-    //         content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto animi architecto voluptatum sapiente natus ipsam eos, totam magnam corrupti facilis?',
-    //     },
-    //     {
-    //         source: { id: '8', name: 'The inthernet' },
-    //         author: 'Google',
-    //         title: 'Text 8',
-    //         description: 'Lorem ipsum dolor sit amet, consectetur adipisicing...',
-    //         url: '',
-    //         urlToImage: 'http://birolkahraman.com/application/assets/img/site/News.jpg',
-    //         publishedAt: '2019-01-03T15:30:00Z',
-    //         content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto animi architecto voluptatum sapiente natus ipsam eos, totam magnam corrupti facilis?',
-    //     },
-    //     {
-    //         source: { id: '9', name: 'The inthernet' },
-    //         author: '',
-    //         title: 'Text 9',
-    //         description: 'Lorem ipsum dolor sit amet, consectetur adipisicing...',
-    //         url: '',
-    //         urlToImage: 'http://birolkahraman.com/application/assets/img/site/News.jpg',
-    //         publishedAt: '2018-06-03T15:30:00Z',
-    //         content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto animi architecto voluptatum sapiente natus ipsam eos, totam magnam corrupti facilis?',
-    //     },
-    //     {
-    //         source: { id: '10', name: 'The inthernet' },
-    //         author: '',
-    //         title: 'Text 10',
-    //         description: 'Lorem ipsum dolor sit amet, consectetur adipisicing...',
-    //         url: '',
-    //         urlToImage: 'http://birolkahraman.com/application/assets/img/site/News.jpg',
-    //         publishedAt: '2019-01-03T15:30:00Z',
-    //         content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto animi architecto voluptatum sapiente natus ipsam eos, totam magnam corrupti facilis?',
-    //     },
-    // ];
     public baseURL = 'https://newsapi.org/v2/';
+    public localBaseURL = 'http://localhost:5500';
+    public options = { headers: {'Content-Type': 'application/json'} };
 
     public newsSource = new BehaviorSubject<object>(this.newsItems);
     public currentNews = this.newsSource.asObservable();
@@ -144,15 +43,17 @@ export class DataService {
                                       &pageSize=100&sortBy=popularity&apiKey=${Api.DEFAULT}`).toPromise();
     }
 
-    public getLocalNews(): Promise<object> {
-        return this.http.get<object>('assets/data.json').toPromise();
+    public getLocalNews(): Promise<Article[]> {
+        return this.http.get<Article[]>(this.localBaseURL + '/news').toPromise();
     }
 
-    public delete(listItems: Article[] | undefined, id: string): void {
-        const deleteNews = listItems.find((item: Article) => item.source.id === id);
-        listItems.splice(listItems.indexOf(deleteNews), 1);
-        this.newsSource.next(listItems);
-        this.router.navigate(['/main']);
+    public delete(item: Article): Promise<Article> {
+        const id = item._id;
+        return this.http.delete<Article>(this.localBaseURL + '/news' + `/${id}`).toPromise();
+        // const deleteNews = listItems.find((item: Article) => item.source.id === id);
+        // listItems.splice(listItems.indexOf(deleteNews), 1);
+        // this.newsSource.next(listItems);
+        // this.router.navigate(['/main']);
     }
 
     public loadNews(currentItems: Article[], news: Article[]): void {
@@ -160,16 +61,23 @@ export class DataService {
                           : this.newsSource.next(currentItems.concat(this.newsItems.slice(5)));
     }
 
-    public getItem(id: string): Article {
-        return this.newsItems.find((item: Article) => item.source.id === id);
+    public getItem(id: string): Promise<Article> {
+        return this.http.get<Article>(this.localBaseURL + '/news' + `/${id}`).toPromise();
+        // return this.newsItems.find((item: Article) => item.source.id === id);
     }
 
     public filterByMe(): void {
         this.newsSource.next(this.filter(this.newsItems, Authors.DEFAULT, Filters.byAuthor));
     }
 
-    public updateNews(news: Article): Promise<object> {
-        return this.http.post<object>('assets/data.json', news).toPromise();
+    public updateNews(id: string, item: Article): Promise<Article> {
+        return this.http.put<Article>(this.localBaseURL + '/news' + `/${id}`, item).toPromise();
+        // return this.http.post<object>('assets/data.json', news).toPromise();
+    }
+
+    public addNews(item: Article): Promise<Article> {
+       console.log('tttttttttttt', item)
+        return this.http.post<Article>(this.localBaseURL + '/news', JSON.stringify(item), this.options).toPromise();
     }
 
     public getAllItems(): void {

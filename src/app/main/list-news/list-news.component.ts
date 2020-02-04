@@ -53,6 +53,7 @@ export class ListNewsComponent implements OnInit, OnDestroy {
 
         this.dataService.getLocalNews()
             .then((res: Article[]) => {
+                console.log('fffffffffffff', res)
                 this.dataService.setNews(res);
             })
             .catch(err => console.log('error', err));

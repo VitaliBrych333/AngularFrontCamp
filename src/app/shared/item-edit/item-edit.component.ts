@@ -58,9 +58,14 @@ export class ItemEditComponent implements OnInit {
             content: this.newsItem.value.content
         };
 
-        this.dataService.updateNews(news);
-        console.log('save');
-        this.router.navigate(['/main']);
+        const currentUrl = this.activatedRouter.snapshot.routeConfig.path;
+
+        currentUrl === Path.ADDNEWS ? this.dataService.addNews(news)
+                                       .then(res => this.router.navigate(['/main']))
+                                       .catch(err => console.log('error', err))
+                                 : this.dataService.updateNews(this.currentFieldEditId, news)
+                                       .then(res => this.router.navigate(['/main']))
+                                       .catch(err => console.log('error', err));
     }
 
     public cancel(): void {
@@ -75,7 +80,6 @@ export class ItemEditComponent implements OnInit {
             description: [ null, Validators.required ],
             content: [ null, Validators.required ],
             image: [ null, Validators.required ],
-            url: null,
             link: null,
             date: [ this.datePipe.transform(new Date(), 'yyyy-MM-dd'), Validators.required ],
             author: [ null, Validators.required ],
@@ -84,19 +88,30 @@ export class ItemEditComponent implements OnInit {
     }
 
     public setCustomPropertiesForm(): void {
-        this.currenttItem = this.dataService.getItem(this.currentFieldEditId);
-        const date = this.datePipe.transform(this.currenttItem.publishedAt.slice(0, 10), 'yyyy-MM-dd');
+        this.dataService.getItem(this.currentFieldEditId)
+            .then(res => {
+                this.currenttItem = res;
+                const datePipe = this.datePipe.transform(this.currenttItem.publishedAt.slice(0, 10), 'yyyy-MM-dd');
 
-        this.newsItem = this.fb.group({
-            heading: [this.currenttItem.title, Validators.required],
-            description: [this.currenttItem.description, Validators.required],
-            content: [this.currenttItem.content, Validators.required],
-            image: [this.currenttItem.urlToImage, Validators.required],
-            url: [null],
-            link: [null],
-            date: [date, Validators.required],
-            author: [this.currenttItem.author, Validators.required],
-            source: [this.currenttItem.source.name, Validators.required]
-        });
+                this.newsItem.setValue({
+                    heading: this.currenttItem.title,
+                    description: this.currenttItem.description,
+                    content: this.currenttItem.content,
+                    image: this.currenttItem.urlToImage,
+                    link: null,
+                    date: datePipe,
+                    author: this.currenttItem.author,
+                    source: this.currenttItem.source.name
+                });
+
+                this.newsItem.get('heading').setValidators(Validators.required);
+                this.newsItem.get('description').setValidators(Validators.required);
+                this.newsItem.get('content').setValidators(Validators.required);
+                this.newsItem.get('image').setValidators(Validators.required);
+                // this.newsItem.get('link').setValidators(Validators.required);
+                this.newsItem.get('author').setValidators(Validators.required);
+                this.newsItem.get('source').setValidators(Validators.required);
+            })
+            .catch(err => console.log('error', err));
     }
 }
