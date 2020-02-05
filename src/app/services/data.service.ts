@@ -56,10 +56,10 @@ export class DataService {
         // this.router.navigate(['/main']);
     }
 
-    public loadNews(currentItems: Article[], news: Article[]): void {
-        news.length !== 5 ? this.newsSource.next(currentItems.concat(news.slice(currentItems.length, currentItems.length + 5)))
-                          : this.newsSource.next(currentItems.concat(this.newsItems.slice(5)));
-    }
+    // public loadNews(currentItems: Article[], news: Article[]): void {
+    //     news.length !== 5 ? this.newsSource.next(currentItems.concat(news.slice(currentItems.length, currentItems.length + 5)))
+    //                       : this.newsSource.next(currentItems.concat(this.newsItems.slice(5)));
+    // }
 
     public getItem(id: string): Promise<Article> {
         return this.http.get<Article>(this.localBaseURL + '/news' + `/${id}`).toPromise();
@@ -76,7 +76,6 @@ export class DataService {
     }
 
     public addNews(item: Article): Promise<Article> {
-       console.log('tttttttttttt', item)
         return this.http.post<Article>(this.localBaseURL + '/news', JSON.stringify(item), this.options).toPromise();
     }
 

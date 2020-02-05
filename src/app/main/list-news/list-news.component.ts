@@ -22,7 +22,7 @@ import { RequestArticle } from '../../interfaces/request-articles.iterface';
 })
 export class ListNewsComponent implements OnInit, OnDestroy {
 
-    public newsItems: Article[];
+    public newsItems: Article[] = [];
     public currentItems: Article[] = [];
     public isEmpty: boolean = false;
 
@@ -35,6 +35,7 @@ export class ListNewsComponent implements OnInit, OnDestroy {
     public isDisabled: boolean = false;
     public sources: Sources[];
     public arrayNews: Article[];
+    public allNews: Article[];
 
     private readonly unsubscribe$: Subject<boolean> = new Subject();
 
@@ -53,8 +54,9 @@ export class ListNewsComponent implements OnInit, OnDestroy {
 
         this.dataService.getLocalNews()
             .then((res: Article[]) => {
-                console.log('fffffffffffff', res)
-                this.dataService.setNews(res);
+                this.allNews = res;
+                this.dataService.newsSource.next(this.allNews.slice(0, 5));
+                // this.dataService.setNews(res);
             })
             .catch(err => console.log('error', err));
 
@@ -75,9 +77,11 @@ export class ListNewsComponent implements OnInit, OnDestroy {
         this.dataService.currentNews
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe((data: Article[]) => {
-                  this.arrayNews = data;
+                  // this.arrayNews = data;
+                  // this.loadNews();
                   this.showNews(data);
-                  this.createElementsNewsItem();
+
+                  // this.createElementsNewsItem();
             });
     }
 
@@ -95,8 +99,7 @@ export class ListNewsComponent implements OnInit, OnDestroy {
     }
 
     public showNews(data: Article[] ): void {
-        this.newsItems = data.length !== 10 ? data.slice(0, 5)
-                                            : data;
+        this.newsItems = data;
         this.isEmpty = data.length < 5;
         this.createElementsNewsItem();
     }
@@ -106,8 +109,10 @@ export class ListNewsComponent implements OnInit, OnDestroy {
         this.unsubscribe$.unsubscribe();
     }
 
-    public loadNews(event: Event): void {
-        this.isEmpty = true;
+    public loadNews(): void {
+        const countCurrentArticle = this.newsItems.length;
+        this.dataService.newsSource.next(this.allNews.slice(0, countCurrentArticle + 5));
+        this.isEmpty = countCurrentArticle + 5 >= this.allNews.length;
     }
 
     public checkValue(event: { target: HTMLInputElement; }): void {
@@ -122,6 +127,7 @@ export class ListNewsComponent implements OnInit, OnDestroy {
     }
 
     public filterSource(event: { target: HTMLInputElement; }): void {
+        this.newsItems = [];
         const valueSource = event.target.value;
         valueSource !== Source.DEFAULT ? this.source = valueSource
                                        : this.source = null;
@@ -130,8 +136,10 @@ export class ListNewsComponent implements OnInit, OnDestroy {
           const resource = this.sources.find(item => item.name === valueSource).id;
           this.dataService.getNewsBySource(resource)
               .then((res: RequestArticle) => {
-                  this.dataService.newsSource.next(res.articles);
-                  this.showNews(res.articles);
+                  // this.dataService.newsSource.next(res.articles);
+                  this.allNews = res.articles;
+                  this.dataService.newsSource.next(this.allNews.slice(0, 5));
+                  // this.showNews(res.articles);
                   this.cdr.markForCheck();
                   this.showSource = valueSource;
               })

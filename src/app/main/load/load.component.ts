@@ -16,7 +16,7 @@ export class LoadComponent {
     constructor(private dataService: DataService) { }
 
     public loadNews(currentItems: Article[], news: Article[]): void {
-        this.dataService.loadNews(currentItems, news);
+        // this.dataService.loadNews(currentItems, news);
         this.loadMore.emit();
     }
 }
