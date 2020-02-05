@@ -11,7 +11,8 @@ mongoose.connect(
 );
 
 app.set('port', (process.env.PORT || 5500));
-app.use(express.static(path.join(__dirname + '/dist/ang-front-camp')));
+app.use(express.static('../dist/ang-front-camp'));
+// app.use(express.static(path.join(__dirname + '/dist/ang-front-camp')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
