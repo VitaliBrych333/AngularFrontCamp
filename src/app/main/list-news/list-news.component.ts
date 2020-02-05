@@ -34,8 +34,7 @@ export class ListNewsComponent implements OnInit, OnDestroy {
     public showSource: string = null;
     public isDisabled: boolean = false;
     public sources: Sources[];
-    public arrayNews: Article[];
-    public allNews: Article[];
+    public allNews: Article[] = [];
 
     private readonly unsubscribe$: Subject<boolean> = new Subject();
 
@@ -56,7 +55,7 @@ export class ListNewsComponent implements OnInit, OnDestroy {
             .then((res: Article[]) => {
                 this.allNews = res;
                 this.dataService.newsSource.next(this.allNews.slice(0, 5));
-                // this.dataService.setNews(res);
+                this.dataService.setNews(res);
             })
             .catch(err => console.log('error', err));
 
@@ -77,11 +76,9 @@ export class ListNewsComponent implements OnInit, OnDestroy {
         this.dataService.currentNews
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe((data: Article[]) => {
-                  // this.arrayNews = data;
-                  // this.loadNews();
+                  this.newsItems = [];
+                  this.cdr.markForCheck();
                   this.showNews(data);
-
-                  // this.createElementsNewsItem();
             });
     }
 
@@ -136,10 +133,8 @@ export class ListNewsComponent implements OnInit, OnDestroy {
           const resource = this.sources.find(item => item.name === valueSource).id;
           this.dataService.getNewsBySource(resource)
               .then((res: RequestArticle) => {
-                  // this.dataService.newsSource.next(res.articles);
                   this.allNews = res.articles;
                   this.dataService.newsSource.next(this.allNews.slice(0, 5));
-                  // this.showNews(res.articles);
                   this.cdr.markForCheck();
                   this.showSource = valueSource;
               })
@@ -163,6 +158,7 @@ export class ListNewsComponent implements OnInit, OnDestroy {
             this.dataService.filterByMe();
         }
 
-        this.showSource = this.source;
+        this.showSource = !valueKeyWords ? null
+                                         : this.source;
     }
 }

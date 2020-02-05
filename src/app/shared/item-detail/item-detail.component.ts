@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { Article } from '../../interfaces/article.interface';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Authors } from '../../shared/constants/authors-enum';
 import { Subject } from 'rxjs';
 import { takeUntil} from 'rxjs/operators';
@@ -22,7 +22,8 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
     private readonly unsubscribe$: Subject<boolean> = new Subject();
 
     constructor(private dataService: DataService,
-                private activatedRouter: ActivatedRoute) { }
+                private activatedRouter: ActivatedRoute,
+                private router: Router) { }
 
     public ngOnInit(): void {
         this.dataService.currentNews
@@ -41,8 +42,11 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
         this.unsubscribe$.unsubscribe();
     }
 
-    public delete(): void {
-        console.log('delete');
+    public delete(item: Article): void {
+      this.dataService.delete(item)
+          .then(res => {
+              this.router.navigate(['/main']);
+          })
+          .catch(err => console.log('error', err));
     }
-
 }

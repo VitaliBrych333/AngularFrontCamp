@@ -6,7 +6,6 @@ import { Authors } from '../shared/constants/authors-enum';
 import { Filters } from '../shared/constants/filters';
 import { HttpClient } from '@angular/common/http';
 import { Api } from '../shared/constants/api-enum';
-import { RequestSource } from '../interfaces/request-sources.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -50,29 +49,14 @@ export class DataService {
     public delete(item: Article): Promise<Article> {
         const id = item._id;
         return this.http.delete<Article>(this.localBaseURL + '/news' + `/${id}`).toPromise();
-        // const deleteNews = listItems.find((item: Article) => item.source.id === id);
-        // listItems.splice(listItems.indexOf(deleteNews), 1);
-        // this.newsSource.next(listItems);
-        // this.router.navigate(['/main']);
     }
-
-    // public loadNews(currentItems: Article[], news: Article[]): void {
-    //     news.length !== 5 ? this.newsSource.next(currentItems.concat(news.slice(currentItems.length, currentItems.length + 5)))
-    //                       : this.newsSource.next(currentItems.concat(this.newsItems.slice(5)));
-    // }
 
     public getItem(id: string): Promise<Article> {
         return this.http.get<Article>(this.localBaseURL + '/news' + `/${id}`).toPromise();
-        // return this.newsItems.find((item: Article) => item.source.id === id);
-    }
-
-    public filterByMe(): void {
-        this.newsSource.next(this.filter(this.newsItems, Authors.DEFAULT, Filters.byAuthor));
     }
 
     public updateNews(id: string, item: Article): Promise<Article> {
         return this.http.put<Article>(this.localBaseURL + '/news' + `/${id}`, item).toPromise();
-        // return this.http.post<object>('assets/data.json', news).toPromise();
     }
 
     public addNews(item: Article): Promise<Article> {
@@ -85,6 +69,10 @@ export class DataService {
 
     public filter(data: Article[], filterValue: string, filterType: any): Article[] {
         return filterType(data, filterValue);
+    }
+
+    public filterByMe(): void {
+        this.newsSource.next(this.filter(this.newsItems, Authors.DEFAULT, Filters.byAuthor));
     }
 
     public filterByKeyWords(value: string | undefined,

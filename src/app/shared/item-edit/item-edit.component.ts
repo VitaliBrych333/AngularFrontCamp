@@ -6,6 +6,8 @@ import { Article } from 'src/app/interfaces/article.interface';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Path } from '../../shared/constants/path-enum';
+import { Authors } from '../../shared/constants/authors-enum';
+import { Source } from '../../shared/constants/source-enum';
 
 @Component({
     selector: 'app-item-edit',
@@ -17,8 +19,7 @@ import { Path } from '../../shared/constants/path-enum';
 export class ItemEditComponent implements OnInit {
 
     public currentFieldEditId: string = this.activatedRouter.snapshot.paramMap.get('id');
-    public currenttItem: Article;
-    public valueCheckBox: string = 'file';
+    public valueCheckBox: string = Source.VALCHECKBOX;
 
     public newsItem = new FormGroup({
         heading: new FormControl(),
@@ -48,7 +49,7 @@ export class ItemEditComponent implements OnInit {
 
     public save(): void {
         const news: Article = {
-            source: { id: (Math.floor(Math.random() * 99 + 2)).toString(), name: 'The inthernet'},
+            source: { id: (Math.floor(Math.random() * 99 + 2)).toString(), name: Authors.SOURCE },
             author: this.newsItem.value.author,
             title: this.newsItem.value.heading,
             description: this.newsItem.value.description,
@@ -70,8 +71,6 @@ export class ItemEditComponent implements OnInit {
 
     public cancel(): void {
         this.router.navigate(['/main']);
-        console.log('cancel');
-
     }
 
     public setDefaultPropertiesForm(): void {
@@ -79,10 +78,10 @@ export class ItemEditComponent implements OnInit {
             heading: [ null, Validators.required ],
             description: [ null, Validators.required ],
             content: [ null, Validators.required ],
-            image: [ null, Validators.required ],
+            image: [ Path.URLIMG, Validators.required ],
             link: null,
             date: [ this.datePipe.transform(new Date(), 'yyyy-MM-dd'), Validators.required ],
-            author: [ null, Validators.required ],
+            author: [ Authors.DEFAULT, Validators.required ],
             source: [ null, Validators.required ]
         });
     }
@@ -90,28 +89,29 @@ export class ItemEditComponent implements OnInit {
     public setCustomPropertiesForm(): void {
         this.dataService.getItem(this.currentFieldEditId)
             .then(res => {
-                this.currenttItem = res;
-                const datePipe = this.datePipe.transform(this.currenttItem.publishedAt.slice(0, 10), 'yyyy-MM-dd');
-
-                this.newsItem.setValue({
-                    heading: this.currenttItem.title,
-                    description: this.currenttItem.description,
-                    content: this.currenttItem.content,
-                    image: this.currenttItem.urlToImage,
-                    link: null,
-                    date: datePipe,
-                    author: this.currenttItem.author,
-                    source: this.currenttItem.source.name
-                });
-
-                this.newsItem.get('heading').setValidators(Validators.required);
-                this.newsItem.get('description').setValidators(Validators.required);
-                this.newsItem.get('content').setValidators(Validators.required);
-                this.newsItem.get('image').setValidators(Validators.required);
-                // this.newsItem.get('link').setValidators(Validators.required);
-                this.newsItem.get('author').setValidators(Validators.required);
-                this.newsItem.get('source').setValidators(Validators.required);
+                this.setValueForm(res);
             })
             .catch(err => console.log('error', err));
+    }
+
+    private setValueForm(article: Article): void {
+        const datePipe = this.datePipe.transform(article.publishedAt.slice(0, 10), 'yyyy-MM-dd');
+        this.newsItem.setValue({
+            heading: article.title,
+            description: article.description,
+            content: article.content,
+            image: article.urlToImage,
+            link: null,
+            date: datePipe,
+            author: article.author,
+            source: article.source.name
+        });
+
+        this.newsItem.get('heading').setValidators(Validators.required);
+        this.newsItem.get('description').setValidators(Validators.required);
+        this.newsItem.get('content').setValidators(Validators.required);
+        this.newsItem.get('image').setValidators(Validators.required);
+        this.newsItem.get('author').setValidators(Validators.required);
+        this.newsItem.get('source').setValidators(Validators.required);
     }
 }

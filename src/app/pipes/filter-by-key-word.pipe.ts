@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Article } from '../interfaces/article.interface';
 
 @Pipe({
-  name: 'filterByKeyWord'
+    name: 'filterByKeyWord'
 })
 export class FilterByKeyWordPipe implements PipeTransform {
 
