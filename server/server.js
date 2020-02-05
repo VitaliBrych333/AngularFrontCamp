@@ -11,7 +11,7 @@ mongoose.connect(
 );
 
 app.set('port', (process.env.PORT || 5500));
-app.use(express.static(path.join(__dirname + '/dist/AngFrontCamp/index.html')));
+app.use(express.static(path.join(__dirname + '/dist/AngFrontCamp')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -22,7 +22,10 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/', router);
+app.get('/*', function(req,res) {
+    res.sendFile(path.join(__dirname,'/dist/AngFrontCamp/index.html'));
+});
+// app.use('/', router);
 
 app.use((err, req, res, next) => {
     res.status(500).render('error', {contentError: `Error: ${err.message}`})
