@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 const router = require('./routers/router');
 const app = express();
+const path = require('path');
 
 mongoose.connect(
     'mongodb://admin:admin2020@ds135061.mlab.com:35061/news',
