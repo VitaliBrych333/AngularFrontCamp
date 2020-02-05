@@ -28,9 +28,9 @@ app.get('/*', function(req,res) {
 });
 // app.use('/', router);
 
-app.use((err, req, res, next) => {
-    res.status(500).render('error', {contentError: `Error: ${err.message}`})
-});
+// app.use((err, req, res, next) => {
+//     res.status(500).render('error', {contentError: `Error: ${err.message}`})
+// });
 
 app.listen(app.get('port'), () => {
     console.log('Node app is running at localhost:' + app.get('port'));
