@@ -11,7 +11,7 @@ mongoose.connect(
 );
 
 app.set('port', (process.env.PORT || 5500));
-app.use(express.static(path.join(__dirname, '/dist/ang-front-camp')));
+app.use(express.static(__dirname + '/dist/ang-front-camp'));
 // app.use(express.static(path.join(__dirname + '/dist/ang-front-camp')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/*', function(req,res) {
-    res.sendFile(path.join(__dirname,'/dist/ang-front-camp/index.html'));
+    res.sendFile(path.join(__dirname+'/dist/ang-front-camp/index.html'));
 });
 // app.use('/', router);
 
