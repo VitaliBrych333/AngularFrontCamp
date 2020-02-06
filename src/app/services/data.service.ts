@@ -14,7 +14,7 @@ export class DataService {
 
     public newsItems: Article[] = [];
     public baseURL = 'https://newsapi.org/v2/';
-    public localBaseURL = 'http://localhost:5500';
+    public localBaseURL = '';
     public options = { headers: {'Content-Type': 'application/json'} };
 
     public newsSource = new BehaviorSubject<object>(this.newsItems);
