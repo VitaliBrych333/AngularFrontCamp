@@ -1,0 +1,38 @@
+.source {
+    text-align: center;
+}
+
+.filter {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+form div {
+  display: inline-block;
+  margin-left: 50px;
+}
+
+input[type="text"] {
+    height: 22px;
+}
+
+.checkbox p {
+    display: inline-block;
+}
+
+button {
+    width: 70px;
+    height: 25px;
+    border-radius: 5px;
+}
+
+select {
+    width: 100px;
+    height: 22px;
+}
+
+button:hover, .loading button:hover {
+    background-color: cornflowerblue;
+    cursor: pointer;
+}

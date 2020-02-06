@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="content">
+      <img alt="Angular Logo" [src]="propUrlImg">
+      <div>
+        <div><p>{{currentNews.title}}</p></div>
+        <p>{{currentNews.content || currentNews.description}}</p>
+        <div><p *ngIf="currentNews.publishedAt">{{currentNews.publishedAt.slice(11, 19)}}</p></div>
+        <div><p *ngIf="currentNews.publishedAt">{{currentNews.publishedAt.slice(0, 10)}}</p></div>
+        <div><p>{{currentNews.author}}</p></div>
+      </div>
+  </div>
+
+  <div class="button" *ngIf="isCurrentUser">
+      <button [routerLink]="['/main/edit/', currentNews._id]">Edit</button>
+      <button (click)="delete(currentNews)">Delete</button>
+  </div>
+</div>

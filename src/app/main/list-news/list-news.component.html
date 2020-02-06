@@ -1,0 +1,27 @@
+<div>
+    <div class="source">
+        <h2 *ngIf="showSource && !isDisabled">{{showSource}}</h2>
+    </div>
+    <div class="filter">
+        <form id="form" [formGroup]="filter">
+            <select (change)="filterSource($event)" [disabled]="isDisabled">
+                <option>Select source</option>
+                <option *ngFor="let source of sources">{{source.name}}</option>
+            </select>
+            <div>
+                <input type="text" formControlName="keyWords">
+                <button (click)="filterByKeyWords()">Filter</button>
+            </div>
+        </form>
+
+        <div class="checkbox">
+            <input type="checkbox" (change)="checkValue($event)">
+            <p>Only created by me</p>
+        </div>
+        <button routerLink="/main/newNews">Add article</button>
+    </div>
+    <ng-template #parent></ng-template>
+    <!-- <app-news-item *ngFor="let item of newsItems | filterByKeyWord : filter.value.keyWords" [item]="item" [listItems]="newsItems"></app-news-item> -->
+    <app-load *ngIf="(newsItems | filterByKeyWord : filter.value.keyWords).length >= 5 && !isEmpty" (loadMore)="loadNews()"></app-load>
+</div>
+

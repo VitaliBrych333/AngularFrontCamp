@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="content">
+      <img alt="Angular Logo" [src]="propUrlImg">
+      <div>
+        <div><p>{{item.title}}</p></div>
+        <a [routerLink]="['/main/', propUrl]" *ngIf="item.description">{{item.description.slice(0, 80)}}...</a>
+      </div>
+  </div>
+  <div class="button">
+      <div><p *ngIf="item.publishedAt">{{item.publishedAt.slice(0, 10)}}</p></div>
+      <div *ngIf="isCurrentUser">
+        <button [routerLink]="['/main/edit/', item._id]">Edit</button>
+        <button [routerLink]="['/main/', propUrl]">Delete</button>
+      </div>
+  </div>
+</div>

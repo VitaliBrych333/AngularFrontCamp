@@ -1,0 +1,43 @@
+<div class="container">
+  <form [formGroup]="newsItem">
+    <div>
+      <label>
+        Heading:
+        <input type="text" formControlName="heading">
+      </label>
+      <label>
+        Short description:
+        <input type="text" formControlName="description">
+      </label>
+      <label>
+        Content:
+        <textarea type="text" class="content" formControlName="content"></textarea>
+      </label>
+    </div>
+    <div>
+      <label>
+        Image:
+        URL
+        <input type="radio" name="link" value="url" formControlName="link" (change)="changeValue($event)" [checked]="true">
+        File
+        <input type="radio" name="link" value="file" formControlName="link" (change)="changeValue($event)">
+
+        <input type="text" formControlName="image">
+      </label>
+      <label>
+        Date:
+        <input type="date" formControlName="date">
+      </label>
+      <label>
+        Author:
+        <input type="text" formControlName="author">
+      </label>
+      <label>
+        Source URL:
+        <input type="text" formControlName="source">
+      </label>
+      <button (click)="save()" [disabled]="!newsItem.valid">Save</button>
+      <button (click)="cancel()">Cancel</button>
+    </div>
+  </form>
+</div>
