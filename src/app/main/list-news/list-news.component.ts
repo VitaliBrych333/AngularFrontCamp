@@ -51,35 +51,35 @@ export class ListNewsComponent implements OnInit, OnDestroy {
             keyWords: null,
         });
 
-        this.dataService.getLocalNews()
-            .then((res: Article[]) => {
-                this.allNews = res;
-                this.dataService.newsSource.next(this.allNews.slice(0, 5));
-                this.dataService.setNews(res);
-            })
-            .catch(err => console.log('error', err));
+        // this.dataService.getLocalNews()
+        //     .then((res: Article[]) => {
+        //         this.allNews = res;
+        //         this.dataService.newsSource.next(this.allNews.slice(0, 5));
+        //         this.dataService.setNews(res);
+        //     })
+        //     .catch(err => console.log('error', err));
 
-        this.dataService.getListSources()
-            .then((res: RequestSource) => {
-                this.sources = res.sources;
-                this.cdr.markForCheck();
-            })
-            .catch(err => console.log('errr', err));
+        // this.dataService.getListSources()
+        //     .then((res: RequestSource) => {
+        //         this.sources = res.sources;
+        //         this.cdr.markForCheck();
+        //     })
+        //     .catch(err => console.log('errr', err));
 
-        this.filter.valueChanges
-            .pipe(takeUntil(this.unsubscribe$))
-            .subscribe(val => {
-                val.keyWords.trim() ? this.createElementsNewsItem()
-                                    : undefined;
-            });
+        // this.filter.valueChanges
+        //     .pipe(takeUntil(this.unsubscribe$))
+        //     .subscribe(val => {
+        //         val.keyWords.trim() ? this.createElementsNewsItem()
+        //                             : undefined;
+        //     });
 
-        this.dataService.currentNews
-            .pipe(takeUntil(this.unsubscribe$))
-            .subscribe((data: Article[]) => {
-                  this.newsItems = [];
-                  this.cdr.markForCheck();
-                  this.showNews(data);
-            });
+        // this.dataService.currentNews
+        //     .pipe(takeUntil(this.unsubscribe$))
+        //     .subscribe((data: Article[]) => {
+        //           this.newsItems = [];
+        //           this.cdr.markForCheck();
+        //           this.showNews(data);
+        //     });
     }
 
     public createElementsNewsItem(): void {
