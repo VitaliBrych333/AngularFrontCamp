@@ -43,10 +43,10 @@ const path = require('path');
 const app = express();
 
 // Serve only the static files form the dist directory
-app.use(express.static('/dist/angfrontcamp'));
+app.use(express.static('/dist/AngFrontCamp'));
 
 app.get('*', (request, response) => {
-	response.sendFile(path.join(__dirname, '/dist/angfrontcamp', 'index.html'));
+	response.sendFile(path.join(__dirname, '/dist/AngFrontCamp', 'index.html'));
 });
 
 // app.get('/*', function(req,res) {
