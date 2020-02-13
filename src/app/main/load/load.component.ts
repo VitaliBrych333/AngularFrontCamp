@@ -1,6 +1,4 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { DataService } from '../../services/data.service';
-import { News } from '../../interfaces/news.interface';
 
 @Component({
     selector: 'app-load',
@@ -10,13 +8,9 @@ import { News } from '../../interfaces/news.interface';
 })
 export class LoadComponent {
 
-    @Input() public newsItems: News[];
     @Output() public loadMore = new EventEmitter<boolean>();
 
-    constructor(private dataService: DataService) { }
-
-    public loadNews(currentItems: News[]): void {
-        this.dataService.loadNews(currentItems);
+    public loadNews(): void {
         this.loadMore.emit();
     }
 }

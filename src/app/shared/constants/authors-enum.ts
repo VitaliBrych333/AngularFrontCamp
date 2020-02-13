@@ -1,3 +1,4 @@
 export enum Authors {
-    DEFAULT = 'Vitali'
+    DEFAULT = 'Vitali',
+    SOURCE = 'The internet'
 }

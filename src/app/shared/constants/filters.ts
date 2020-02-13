@@ -1,6 +1,11 @@
-import { News } from '../../interfaces/news.interface';
+import { Article } from '../../interfaces/article.interface';
 
 export const Filters = {
-    byAuthor: (data: News[], filterName: string) => data.filter(item => item.author === filterName ),
-    byValue: (data: News[], filterValue: string) => data.filter(item => item.content.indexOf(filterValue) !== -1),
+    byAuthor: (data: Article[], filterName: string) => data.filter(item => item.author === filterName ),
+    byValue: (data: Article[], filterValue: string) => data.filter(item => {
+        if (item.description) {
+            return item.description.indexOf(filterValue) !== -1;
+        }
+        return false;
+    })
 };

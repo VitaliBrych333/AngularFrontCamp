@@ -18,9 +18,9 @@
       <label>
         Image:
         URL
-        <input type="radio" name="link" value="url" formControlName="link">
+        <input type="radio" name="link" value="url" formControlName="link" (change)="changeValue($event)" [checked]="true">
         File
-        <input type="radio" name="link" value="file" formControlName="link">
+        <input type="radio" name="link" value="file" formControlName="link" (change)="changeValue($event)">
 
         <input type="text" formControlName="image">
       </label>
@@ -36,7 +36,7 @@
         Source URL:
         <input type="text" formControlName="source">
       </label>
-      <button (click)="save()">Save</button>
+      <button (click)="save()" [disabled]="!newsItem.valid">Save</button>
       <button (click)="cancel()">Cancel</button>
     </div>
   </form>

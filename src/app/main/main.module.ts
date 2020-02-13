@@ -7,6 +7,8 @@ import { RouterModule } from '@angular/router';
 import { ListNewsComponent } from './list-news/list-news.component';
 import { LoadComponent } from './load/load.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NewsItemComponent } from '../shared/news-item/news-item.component';
+
 @NgModule({
     declarations: [ NotFoundComponent, SelfPresentationComponent, HelloWorldComponent, ListNewsComponent, LoadComponent ],
     imports: [
@@ -15,6 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         FormsModule,
         ReactiveFormsModule
     ],
+    entryComponents: [ NewsItemComponent ],
     exports: [ NotFoundComponent, SelfPresentationComponent, HelloWorldComponent ]
 })
 export class MainModule { }
